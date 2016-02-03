@@ -1,0 +1,48 @@
+<div class="row">
+<h3>List Secrets</h3>
+
+<table  class="highlight">
+  <thead>
+    <tr>
+        <th data-field="id">Secrets</th>
+        <th data-field="name">Likes</th>
+        <th data-field="price">Action</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @secrets.each do |s| %>
+        <tr>
+          <td><%= s.content %></td>
+          <td><%=s.likes.count %> likes</td>
+          <td>
+            <% if s.users_liked.include?(current_user) %>
+              <form action="/likes/<%= s.find_like_id current_user%>" method='post'>
+                <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+                <input type='hidden' name='user_id' value='<%= s.user_id %>'>
+                <input type='submit' value='Unlike' class="waves-effect deep-orange lighten-1 btn">
+              </form>
+
+              <% else %>
+             
+              <form action='/likes' method='post'>
+                <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+                <input type='hidden' name='secret_id' value='<%= s.id %>'>
+                <input type='submit' value='Like' class="waves-effect waves-light blue darken-1 btn">
+              </form>
+             
+              <% end %>
+             
+              <% if current_user == s.user %>
+                <form action='/secrets/<%= s.id %>' method='post'>
+                  <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+                  <input type='hidden' name='_method' value='delete'>
+                  <input type='submit' value='Delete' class="waves-effect waves-light red darken-4 btn">
+                </form>
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>

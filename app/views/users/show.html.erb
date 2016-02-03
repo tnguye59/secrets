@@ -1,0 +1,50 @@
+<div class="row">
+	<div>
+		<% if @user.name %>
+	<h1>Hello <%= @user.name %> </h1>
+	<% end %>
+
+	<h3>List Secrets</h3>
+
+	<table  class="highlight">
+        <thead>
+          <tr>
+              <th data-field="id">Secret</th>
+              <th data-field="name">Likes</th>
+              <th data-field="price">Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+        	<% @user.secrets.each do |s| %>
+          <tr>
+            <td><%= s.content %></td>
+            <td><%=s.likes.count %> likes</td>
+            <td>
+            	<form action="/secrets/<%= s.id %>" method="post">
+		<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+		<input type='hidden' name='_method' value='delete'>
+		<input type="submit" value="Delete" class="waves-effect waves-light red darken-4 btn">
+			</form>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+
+	<form action="/secrets" method="post">
+		<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+		 <div class="input-field col s6">
+		<label>Enter Your Secret</label>
+		<input type="text" id="New Secret" name="secret[content]">
+		<input type="hidden" name="secret[user_id]" value="<%= @user.id %>">
+		<input type="submit" value="Create Secret" class="waves-effect waves-light btn">
+		</div>
+	</form>
+
+	<a href="/users/<%= @user.id %>/edit" class="waves-effect waves-light btn">Edit Profile</a>
+
+	<a href="/users/secrets/<%= @user.id %>" class="waves-effect waves-light btn">Secret List</a>
+	</div>
+</div>

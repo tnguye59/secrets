@@ -1,0 +1,19 @@
+<form action="/users/<%= @user.id %>" method="post">
+	<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+	<p>
+		<label>Name:</label>
+		<input type="text" name="user[name]" id="Name" value="<%= @user.name %>"> 
+
+	</p>
+	<p>
+		<label>Email:</label>
+		<input type="email" name="user[email]" id="Email" value="<%= @user.email %>">
+	</p>
+	<input type="hidden" name="_method" value="patch">
+	<input type="submit" id="Update" value="Update">
+</form>
+
+<form action="/users/destroy/<%= @user.id %>" method="post">
+	<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+	<input type="submit" id="Delete Account" value="Delete Account">
+</form>

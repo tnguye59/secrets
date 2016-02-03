@@ -1,0 +1,20 @@
+ <div class="row">
+
+	<h1>Log in page</h1>
+	<form action="/sessions" method="post" class="col s6">
+		<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+		<div class="row">
+	        <div class="input-field col s6">
+				<input type="text" name="email">
+				<label>Email:</label>
+			</div>
+			<div class="input-field col s6">
+				<input type="password" name="password">
+				<label>Password:</label>
+			</div>
+		</div>
+		<input type="submit" value="Log In" class="waves-effect waves-light blue darken-2 btn">
+	</form>
+</div>
+
+<!-- <a href="/users/new">Not Registered yet?</a> -->
